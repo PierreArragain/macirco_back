@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 
@@ -7,7 +8,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Set contentSecurityPolicy to false for helmet middleware
-  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(
+    helmet({ contentSecurityPolicy: false }),
+    bodyParser.json({ limit: '50mb' }),
+  );
 
   // to use swagger to API Docs
   const options = new DocumentBuilder()
