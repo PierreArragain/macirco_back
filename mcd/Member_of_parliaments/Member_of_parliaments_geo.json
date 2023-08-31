@@ -1,0 +1,25 @@
+{
+  "width": 518,
+  "height": 331,
+  "cx": [
+    [ "PARLIAMENTARY_GROUP", 91 ],
+    [ "BELONGS_TO", 254 ],
+    [ "MEMBER_OF_PARLIAMENT", 422 ],
+    [ "CONSTITUENCY", 254 ],
+    [ "HAS", 422 ]
+  ],
+  "cy": [
+    [ "PARLIAMENTARY_GROUP", 102 ],
+    [ "BELONGS_TO", 102 ],
+    [ "MEMBER_OF_PARLIAMENT", 102 ],
+    [ "CONSTITUENCY", 271 ],
+    [ "HAS", 271 ]
+  ],
+  "shift": [
+    [ "BELONGS_TO,MEMBER_OF_PARLIAMENT,0", 0 ],
+    [ "BELONGS_TO,PARLIAMENTARY_GROUP,0", 0 ],
+    [ "HAS,CONSTITUENCY,0", 0 ],
+    [ "HAS,MEMBER_OF_PARLIAMENT,0", 0 ]
+  ],
+  "ratio": []
+}

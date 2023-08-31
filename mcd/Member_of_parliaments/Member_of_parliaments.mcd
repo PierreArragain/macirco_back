@@ -1,0 +1,7 @@
+PARLIAMENTARY_GROUP: nom
+BELONGS_TO, 0N MEMBER_OF_PARLIAMENT, 11 PARLIAMENTARY_GROUP
+MEMBER_OF_PARLIAMENT: nom, prénom, genre, parti_politique ,profession, photo, mandat_en_cours, link, email
+
+:
+CONSTITUENCY: numéro, département, code, polygon
+HAS, 01 CONSTITUENCY, 01 MEMBER_OF_PARLIAMENT
