@@ -1,7 +1,7 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { MpService } from '../application/mp.service';
-import { CreateMpDto } from '../domain/createMp.dto';
+import { CreateMpDto } from '../domain/create-mp.dto';
 import { MpEntity } from '../domain/mp.entity';
 
 @Controller('mp')

@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   ManyToOne,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ConstituencyEntity } from '../../constituency/domain/constituency.entity';
@@ -40,8 +40,8 @@ export class MpEntity {
   @Column('text', { nullable: true })
   email: string;
 
-  @OneToOne(() => ConstituencyEntity, (constituency) => constituency.mp)
-  constituency: ConstituencyEntity;
+  @OneToMany(() => ConstituencyEntity, (constituency) => constituency.mp)
+  constituencies: ConstituencyEntity[];
 
   @ManyToOne(
     () => ParliamentaryGroupEntity,
