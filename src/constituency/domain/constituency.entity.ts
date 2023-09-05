@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { MpEntity } from '../../mp/domain/mp.entity';
 
 @Entity()
 export class ConstituencyEntity {
@@ -18,4 +19,7 @@ export class ConstituencyEntity {
     spatialFeatureType: 'Polygon',
   })
   polygon: object;
+
+  @OneToOne(() => MpEntity, (mp) => mp.constituency)
+  mp: MpEntity;
 }
