@@ -52,4 +52,17 @@ export class MpService {
       throw error;
     }
   }
+
+  public async findMpByCoordinatesInDb(
+    coordinates: number[],
+  ): Promise<MpEntity> {
+    try {
+      return this.mpDbService.getMpByCoordinates(coordinates);
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a mp : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
 }
