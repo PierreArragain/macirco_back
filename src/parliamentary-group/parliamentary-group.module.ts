@@ -9,5 +9,6 @@ import { ParliamentaryGroupDatabaseService } from './infrastructure/parliamentar
   imports: [TypeOrmModule.forFeature([ParliamentaryGroupEntity])],
   controllers: [ParliamentaryGroupController],
   providers: [ParliamentaryGroupService, ParliamentaryGroupDatabaseService],
+  exports: [ParliamentaryGroupService],
 })
 export class ParliamentaryGroupModule {}

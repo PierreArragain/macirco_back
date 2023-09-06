@@ -9,5 +9,6 @@ import { ConstituencyDatabaseService } from './infrastructure/constituency.db.se
   imports: [TypeOrmModule.forFeature([ConstituencyEntity])],
   providers: [ConstituencyService, ConstituencyDatabaseService],
   controllers: [ConstituencyController],
+  exports: [ConstituencyService],
 })
 export class ConstituencyModule {}

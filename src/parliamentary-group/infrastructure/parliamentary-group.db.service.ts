@@ -23,4 +23,17 @@ export class ParliamentaryGroupDatabaseService {
       throw error;
     }
   }
+
+  async getParliamentaryGroupByAcronym(
+    acronym: string,
+  ): Promise<ParliamentaryGroupEntity> {
+    try {
+      return this.parliamentaryGroupRepository.findOne({ where: { acronym } });
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a parliamentaryGroup : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
 }

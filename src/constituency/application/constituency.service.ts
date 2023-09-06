@@ -46,4 +46,17 @@ export class ConstituencyService {
       throw error;
     }
   }
+
+  public findConstituencyByCodeInDb(
+    code: string,
+  ): Promise<ConstituencyEntity[]> {
+    try {
+      return this.constituencyDbService.getConstituencyByCode(code);
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a constituency : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
 }
