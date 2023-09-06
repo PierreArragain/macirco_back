@@ -11,6 +11,7 @@ import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 import { MpModule } from './mp/mp.module';
 import { ParliamentaryGroupModule } from './parliamentary-group/parliamentary-group.module';
+import { CustomResultsModule } from './custom-results/custom-results.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
@@ -25,6 +26,7 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     ConstituencyModule,
     MpModule,
     ParliamentaryGroupModule,
+    CustomResultsModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],

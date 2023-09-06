@@ -16,7 +16,7 @@ export class DatabaseConfiguration implements TypeOrmOptionsFactory {
       database: process.env.POSTGRES_DATABASE,
       entities: [MpEntity, ConstituencyEntity, ParliamentaryGroupEntity],
       synchronize: true,
-      logging: true,
+      logging: false,
     };
   }
 }
