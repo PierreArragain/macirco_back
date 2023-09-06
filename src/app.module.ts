@@ -9,9 +9,10 @@ import { getEnvPath } from './common/helpers/env.helper';
 import { ConstituencyModule } from './constituency/constituency.module';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
+import { MpModule } from './mp/mp.module';
+import { ParliamentaryGroupModule } from './parliamentary-group/parliamentary-group.module';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
-console.log(envFilePath);
 
 @Module({
   imports: [
@@ -22,6 +23,8 @@ console.log(envFilePath);
     }),
     TerminusModule,
     ConstituencyModule,
+    MpModule,
+    ParliamentaryGroupModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],

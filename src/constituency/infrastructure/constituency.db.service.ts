@@ -23,4 +23,15 @@ export class ConstituencyDatabaseService {
       throw error;
     }
   }
+
+  async getConstituencyByCode(code: string): Promise<ConstituencyEntity[]> {
+    try {
+      return this.constituencyRepository.find({ where: { code } });
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a constituency : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
 }
