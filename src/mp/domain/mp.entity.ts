@@ -40,6 +40,9 @@ export class MpEntity {
   @Column('text', { nullable: true })
   email: string;
 
+  @Column('text', { nullable: true })
+  nosDeputesSlug: string;
+
   @OneToMany(() => ConstituencyEntity, (constituency) => constituency.mp)
   constituencies: ConstituencyEntity[];
 

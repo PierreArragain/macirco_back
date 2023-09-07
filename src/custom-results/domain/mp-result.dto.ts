@@ -1,13 +1,15 @@
-export class CreateMpDto {
+export class MpResultDto {
   surname: string;
   firstName: string;
   gender: string;
-  constituency: string;
-  party: string;
   parliamentaryGroup: string;
+  party: string;
   profession: string;
-  link: string;
   picture: string;
+  inActivity: boolean;
+  link: string;
   email: string;
+  constituency: string;
+  department: string;
   nosDeputesSlug: string;
 }
