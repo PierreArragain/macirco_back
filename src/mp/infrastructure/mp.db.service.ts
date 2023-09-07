@@ -34,6 +34,7 @@ export class MpDatabaseService {
           longitude: coordinates[0],
           latitude: coordinates[1],
         })
+        .innerJoinAndSelect('mp.parliamentaryGroup', 'parliamentaryGroup')
         .addSelect(['constituencies.department', 'constituencies.code'])
         .getOne();
     } catch (error) {

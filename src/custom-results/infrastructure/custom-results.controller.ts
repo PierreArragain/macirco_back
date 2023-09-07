@@ -1,8 +1,8 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { MpEntity } from '../../mp/domain/mp.entity';
 import { CustomResultsService } from '../application/custom-results.service';
 import { GetMPDto } from '../domain/get-mp.dto';
+import { MpResultDto } from '../domain/mp-result.dto';
 
 @Controller('custom-results')
 export class CustomResultsController {
@@ -11,7 +11,7 @@ export class CustomResultsController {
 
   @Post('/getMpByAddress')
   @ApiOperation({ summary: 'Get a mp by address' })
-  async getMpByAddress(@Body() getMpDto: GetMPDto): Promise<MpEntity> {
+  async getMpByAddress(@Body() getMpDto: GetMPDto): Promise<MpResultDto> {
     return this.customResultsService.getMpByAddress(getMpDto);
   }
 }
