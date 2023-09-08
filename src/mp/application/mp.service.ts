@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConstituencyService } from '../../constituency/application/constituency.service';
 import { ParliamentaryGroupService } from '../../parliamentary-group/application/parliamentary-group.service';
 import { CreateMpDto } from '../domain/create-mp.dto';
+import { MpResultDto } from '../domain/mp-result.dto';
 import { MpEntity } from '../domain/mp.entity';
 import { MpDatabaseService } from '../infrastructure/mp.db.service';
 
@@ -42,6 +43,38 @@ export class MpService {
     return mpEntity;
   }
 
+  public mpEntityToMpResultDto(mp: MpEntity): MpResultDto {
+    const mpResultDto = new MpResultDto();
+    mpResultDto.idMp = mp.idMp;
+    mpResultDto.surname = mp.surname;
+    mpResultDto.firstName = mp.firstName;
+    mpResultDto.gender = mp.gender;
+    mpResultDto.parliamentaryGroup = mp.parliamentaryGroup.name;
+    mpResultDto.party = mp.party;
+    mpResultDto.profession = mp.profession;
+    mpResultDto.picture = mp.picture;
+    mpResultDto.inActivity = mp.inActivity;
+    mpResultDto.link = mp.link;
+    mpResultDto.email = mp.email;
+    mpResultDto.department = mp.constituencies[0].department;
+    mpResultDto.constituency = mp.constituencies[0].code;
+    mpResultDto.nosDeputesSlug = mp.nosDeputesSlug;
+
+    return mpResultDto;
+  }
+
+  public async findMpDtoById(idMp: number): Promise<MpResultDto> {
+    try {
+      const mp = await this.findMpByIdInDb(idMp);
+      return this.mpEntityToMpResultDto(mp);
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a mp : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
+
   private async createMpInDb(mp: MpEntity): Promise<MpEntity> {
     try {
       return this.mpDbService.createMp(mp);
@@ -58,6 +91,17 @@ export class MpService {
   ): Promise<MpEntity> {
     try {
       return this.mpDbService.getMpByCoordinates(coordinates);
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a mp : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
+
+  public async findMpByIdInDb(idMp: number): Promise<MpEntity> {
+    try {
+      return this.mpDbService.getMpById(idMp);
     } catch (error) {
       this.logger.error(
         `Error when trying to get a mp : ${error.name} = ${error.message}`,

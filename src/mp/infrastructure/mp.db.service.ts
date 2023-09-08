@@ -44,4 +44,21 @@ export class MpDatabaseService {
       throw error;
     }
   }
+
+  async getMpById(idMp: number): Promise<MpEntity> {
+    try {
+      return this.mpRepository
+        .createQueryBuilder('mp')
+        .where('mp.idMp = :idMp', { idMp })
+        .innerJoinAndSelect('mp.parliamentaryGroup', 'parliamentaryGroup')
+        .innerJoin('mp.constituencies', 'constituencies')
+        .addSelect(['constituencies.department', 'constituencies.code'])
+        .getOne();
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a mp : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
 }
