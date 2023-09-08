@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { MpService } from '../../mp/application/mp.service';
-import { MpEntity } from '../../mp/domain/mp.entity';
+import { GoogleNewsDto } from '../../mp/domain/google-news.dto';
+import { MpResultDto } from '../../mp/domain/mp-result.dto';
+import { GoogleNewsService } from '../../mp/infrastructure/google-news.service';
 import { GetMPDto } from '../domain/get-mp.dto';
-import { MpResultDto } from '../domain/mp-result.dto';
 import { AddressService } from '../infrastructure/address.service';
 
 @Injectable()
@@ -11,13 +12,14 @@ export class CustomResultsService {
   constructor(
     private readonly mpService: MpService,
     private readonly addressService: AddressService,
+    private readonly googleNewsService: GoogleNewsService,
   ) {}
 
   public async getMpByAddress(getMpDto: GetMPDto): Promise<MpResultDto> {
     try {
       const coordinates = await this.getCoordinatesByAddress(getMpDto);
       const mp = await this.mpService.findMpByCoordinatesInDb(coordinates);
-      return this.mpEntityToMpResultDto(mp);
+      return this.mpService.mpEntityToMpResultDto(mp);
     } catch (error) {
       this.logger.error(
         `Error when trying to get a mp by address : ${error.name} = ${error.message}`,
@@ -42,22 +44,38 @@ export class CustomResultsService {
     return address;
   }
 
-  private mpEntityToMpResultDto(mp: MpEntity): MpResultDto {
-    const mpResultDto = new MpResultDto();
-    mpResultDto.surname = mp.surname;
-    mpResultDto.firstName = mp.firstName;
-    mpResultDto.gender = mp.gender;
-    mpResultDto.parliamentaryGroup = mp.parliamentaryGroup.name;
-    mpResultDto.party = mp.party;
-    mpResultDto.profession = mp.profession;
-    mpResultDto.picture = mp.picture;
-    mpResultDto.inActivity = mp.inActivity;
-    mpResultDto.link = mp.link;
-    mpResultDto.email = mp.email;
-    mpResultDto.department = mp.constituencies[0].department;
-    mpResultDto.constituency = mp.constituencies[0].code;
-    mpResultDto.nosDeputesSlug = mp.nosDeputesSlug;
+  async getMpNewsByAddress(getMpDto: GetMPDto): Promise<GoogleNewsDto> {
+    try {
+      const mp = await this.getMpByAddress(getMpDto);
+      return this.getMpNews(mp);
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a mp's news by address : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
 
-    return mpResultDto;
+  async getMpNewsByMpId(mpId: number): Promise<GoogleNewsDto> {
+    try {
+      const mp = await this.mpService.findMpDtoById(mpId);
+      return this.getMpNews(mp);
+    } catch (error) {
+      this.logger.error(
+        `Error when trying to get a mp's news by mpId : ${error.name} = ${error.message}`,
+      );
+      throw error;
+    }
+  }
+
+  async getMpNews(mp: MpResultDto): Promise<GoogleNewsDto> {
+    try {
+      const genderQuery = mp.gender === 'H' ? 'député ' : 'députée ';
+      const query = `${genderQuery} "${mp.firstName} ${mp.surname}"`;
+      return this.googleNewsService.displayResults(query);
+    } catch (error) {
+      this.logger.error("Error when trying to get a mp's news");
+      return undefined;
+    }
   }
 }

@@ -1,4 +1,5 @@
 export class MpResultDto {
+  idMp: number;
   surname: string;
   firstName: string;
   gender: string;
