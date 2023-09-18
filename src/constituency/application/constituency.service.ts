@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Status } from '../../common/constants';
+import { ResponseDto } from '../../common/dtos/response.dto';
 import { ConstituencyEntity } from '../domain/constituency.entity';
 import { ConstituencyFeatureDto } from '../domain/constituency.feature.dto';
 import { ConstituencyDatabaseService } from '../infrastructure/constituency.db.service';
@@ -11,16 +13,25 @@ export class ConstituencyService {
     private readonly constituencyDbService: ConstituencyDatabaseService,
   ) {}
 
-  public async createConstituency(feature: ConstituencyFeatureDto) {
+  public async createConstituency(
+    feature: ConstituencyFeatureDto,
+  ): Promise<ResponseDto> {
+    const response = new ResponseDto();
     try {
       const newConstituency = this.constituencyFeatureToEntity(feature);
-      return this.createConstituencyInDb(newConstituency);
+      const createdConstituency = await this.createConstituencyInDb(
+        newConstituency,
+      );
+      response.status = Status.Added;
+      response.message = 'Constituency created';
     } catch (error) {
       this.logger.error(
         `Error when trying to create a constituency : ${error.name} = ${error.message}`,
       );
-      throw error;
+      response.status = Status.Error;
+      response.message = 'Error when trying to create a constituency';
     }
+    return response;
   }
 
   private constituencyFeatureToEntity(

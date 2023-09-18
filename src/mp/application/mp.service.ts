@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Status } from '../../common/constants';
+import { ResponseDto } from '../../common/dtos/response.dto';
 import { ConstituencyService } from '../../constituency/application/constituency.service';
 import { ParliamentaryGroupService } from '../../parliamentary-group/application/parliamentary-group.service';
 import { CreateMpDto } from '../domain/create-mp.dto';
@@ -16,7 +18,8 @@ export class MpService {
     private readonly parliamentaryGroup: ParliamentaryGroupService,
   ) {}
 
-  public async createMp(mp: CreateMpDto): Promise<MpEntity> {
+  public async createMp(mp: CreateMpDto): Promise<ResponseDto> {
+    const response = new ResponseDto();
     try {
       const mpEntity = this.createMpDtoToMpEntity(mp);
       mpEntity.constituencies =
@@ -27,13 +30,17 @@ export class MpService {
         await this.parliamentaryGroup.findParliamentaryGroupByAcronymInDb(
           mp.parliamentaryGroup,
         );
-      return this.createMpInDb(mpEntity);
+      const createdMp = await this.createMpInDb(mpEntity);
+      response.status = Status.Added;
+      response.message = 'Mp created';
     } catch (error) {
       this.logger.error(
         `Error when trying to create a mp : ${error.name} = ${error.message}`,
       );
-      throw error;
+      response.status = Status.Error;
+      response.message = 'Error when trying to create a mp';
     }
+    return response;
   }
 
   private createMpDtoToMpEntity(mp: CreateMpDto): MpEntity {
