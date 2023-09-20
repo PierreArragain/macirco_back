@@ -5,7 +5,7 @@ export const createMpDtoMock: CreateMpDto = {
   firstName: 'Jeanne',
   gender: 'F',
   constituency: '075-01',
-  party: 'EELV',
+  party: 'Europe Écologie Les Verts',
   parliamentaryGroup: 'ECO',
   profession: 'Enseignante',
   link: 'https://www.nosdeputes.fr/jeanne-dupont',

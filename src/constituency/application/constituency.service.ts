@@ -45,7 +45,7 @@ export class ConstituencyService {
     return constituencyEntity;
   }
 
-  private async createConstituencyInDb(
+  public async createConstituencyInDb(
     newConstituency: ConstituencyEntity,
   ): Promise<ConstituencyEntity> {
     try {
@@ -58,7 +58,7 @@ export class ConstituencyService {
     }
   }
 
-  public findConstituencyByCodeInDb(
+  public async findConstituencyByCodeInDb(
     code: string,
   ): Promise<ConstituencyEntity[]> {
     try {

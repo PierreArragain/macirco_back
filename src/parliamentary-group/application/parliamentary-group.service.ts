@@ -1,4 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { Status } from '../../common/constants';
+import { ResponseDto } from '../../common/dtos/response.dto';
+import { CreateParliamentaryGroupDto } from '../domain/create-parliamentary-group.dto';
 import { ParliamentaryGroupEntity } from '../domain/parliamentary-group.entity';
 import { ParliamentaryGroupDatabaseService } from '../infrastructure/parliamentary-group.db.service';
 
@@ -10,20 +13,28 @@ export class ParliamentaryGroupService {
   ) {}
 
   public async createParliamentaryGroup(
-    parliamentaryGroup: any,
-  ): Promise<ParliamentaryGroupEntity> {
+    parliamentaryGroup: CreateParliamentaryGroupDto,
+  ): Promise<ResponseDto> {
+    const response = new ResponseDto();
     try {
-      return this.createParliamentaryGroupInDb(parliamentaryGroup);
+      const parliamentaryGroupEntity = {
+        ...parliamentaryGroup,
+      } as ParliamentaryGroupEntity;
+      await this.createParliamentaryGroupInDb(parliamentaryGroupEntity);
+      response.status = Status.Added;
+      response.message = 'ParliamentaryGroup created';
     } catch (error) {
       this.logger.error(
         `Error when trying to create a parliamentaryGroup : ${error.name} = ${error.message}`,
       );
-      throw error;
+      response.status = Status.Error;
+      response.message = 'Error when trying to create a parliamentaryGroup';
     }
+    return response;
   }
 
-  private async createParliamentaryGroupInDb(
-    parliamentaryGroup: any,
+  public async createParliamentaryGroupInDb(
+    parliamentaryGroup: ParliamentaryGroupEntity,
   ): Promise<ParliamentaryGroupEntity> {
     try {
       return this.parliamentaryGroupDbService.createParliamentaryGroup(

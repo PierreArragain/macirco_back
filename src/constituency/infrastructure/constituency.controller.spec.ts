@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Status } from '../../common/constants';
 import { ConstituencyService } from '../application/constituency.service';
-import { ConstituencyServiceMock } from '../domain/mocks/constituency.service.mock';
+import { ConstituencyServiceMock } from '../application/mocks/constituency.service.mock';
 import { constituencyFeatureDtoMock } from '../domain/mocks/create-constituency.mock';
 import { ConstituencyController } from './constituency.controller';
 

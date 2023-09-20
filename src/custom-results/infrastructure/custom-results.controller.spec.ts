@@ -35,16 +35,31 @@ describe('CustomResultsController', () => {
   });
 
   describe('getMpNewsByAddress', () => {
-    it('should return news of Mp', async () => {
-      // result should be of type GoogleNewsDto
-      expect(controller.getNews(getMpDtoMock)).resolves.toHaveProperty('title');
-      expect(controller.getNews(getMpDtoMock)).resolves.toHaveProperty('link');
-      expect(controller.getNews(getMpDtoMock)).resolves.toHaveProperty(
-        'pubDate',
-      );
-      expect(controller.getNews(getMpDtoMock)).resolves.toHaveProperty(
-        'contentSnippet',
-      );
+    it('should return news of Mp By Address', async () => {
+      // result should be of type GoogleNewsDto[]
+      const newsArray = await controller.getNews(getMpDtoMock);
+
+      for (const news of newsArray) {
+        expect(news).toHaveProperty('title');
+        expect(news).toHaveProperty('link');
+        expect(news).toHaveProperty('pubDate');
+        expect(news).toHaveProperty('contentSnippet');
+      }
+    });
+  });
+
+  describe('getNewsByMpId', () => {
+    it('should return news of Mp By Address', async () => {
+      const idMp = 1;
+      // result should be of type GoogleNewsDto[]
+      const newsArray = await controller.getNewsByMpId(idMp);
+
+      for (const news of newsArray) {
+        expect(news).toHaveProperty('title');
+        expect(news).toHaveProperty('link');
+        expect(news).toHaveProperty('pubDate');
+        expect(news).toHaveProperty('contentSnippet');
+      }
     });
   });
 });
