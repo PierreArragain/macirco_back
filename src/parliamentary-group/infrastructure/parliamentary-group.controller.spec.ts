@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Status } from '../../common/constants';
+import { ParliamentaryGroupServiceMock } from '../application/mocks/parliamentary-group.service.mock';
 import { ParliamentaryGroupService } from '../application/parliamentary-group.service';
 import { createParliamentaryGroupDtoMock } from '../domain/mocks/create-parliamentary-group.mock';
-import { ParliamentaryGroupServiceMock } from '../domain/mocks/parliamentary-group.service.mock';
 import { ParliamentaryGroupController } from './parliamentary-group.controller';
 
 describe('ParliamentaryGroupController', () => {
