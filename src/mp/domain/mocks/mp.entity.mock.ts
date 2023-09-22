@@ -1,3 +1,4 @@
+import { constituencyEntityMock } from '../../../constituency/domain/mocks/constituency.entity.mock';
 import { ParliamentaryGroupEntity } from '../../../parliamentary-group/domain/parliamentary-group.entity';
 import { MpEntity } from '../mp.entity';
 
@@ -16,7 +17,8 @@ export const mpEntityMock: MpEntity[] = [
     nosDeputesSlug: 'jeanne-dupont',
     parliamentaryGroup: {
       acronym: 'ECO',
+      name: 'Écologiste - NUPES',
     } as ParliamentaryGroupEntity,
-    constituencies: [],
+    constituencies: constituencyEntityMock,
   },
 ];

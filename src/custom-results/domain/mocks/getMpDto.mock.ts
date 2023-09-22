@@ -1,6 +1,6 @@
 export const getMpDtoMock = {
-  streetNumber: 1,
-  streetName: 'streetName',
-  postCode: 11100,
-  city: 'city',
+  streetNumber: 48,
+  streetName: "rue de la Chaussée d'Antin",
+  postCode: 75009,
+  city: 'Paris',
 };

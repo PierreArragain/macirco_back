@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { mpResultDtoMock } from '../../mp/domain/mocks/mp.mock';
 import { CustomResultsService } from '../application/custom-results.service';
-import { CustomResultsServiceMock } from '../domain/mocks/custom-results.service.mock';
+import { CustomResultsServiceMock } from '../application/mocks/custom-results.service.mock';
 import { getMpDtoMock } from '../domain/mocks/getMpDto.mock';
 import { CustomResultsController } from './custom-results.controller';
 

@@ -1,6 +1,4 @@
-import { ConstituencyFeatureDto } from '../constituency.feature.dto';
-
-export const constituencyFeatureDtoMock: ConstituencyFeatureDto = {
+export const constituencyFeatureMock = {
   type: 'Feature',
   properties: { REF: '075-01' },
   geometry: {

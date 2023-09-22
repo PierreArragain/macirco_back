@@ -43,10 +43,18 @@ export class MpService {
     return response;
   }
 
-  private createMpDtoToMpEntity(mp: CreateMpDto): MpEntity {
-    const mpEntity = new MpEntity();
-    Object.assign(mpEntity, mp);
-    mpEntity.inActivity = true;
+  public createMpDtoToMpEntity(mp: CreateMpDto): MpEntity {
+    const mpEntity = {
+      surname: mp.surname,
+      firstName: mp.firstName,
+      gender: mp.gender,
+      party: mp.party,
+      profession: mp.profession,
+      picture: mp.picture,
+      inActivity: true,
+      link: mp.link,
+      email: mp.email,
+    } as MpEntity;
     return mpEntity;
   }
 
@@ -82,7 +90,7 @@ export class MpService {
     }
   }
 
-  private async createMpInDb(mp: MpEntity): Promise<MpEntity> {
+  public async createMpInDb(mp: MpEntity): Promise<MpEntity> {
     try {
       return this.mpDbService.createMp(mp);
     } catch (error) {

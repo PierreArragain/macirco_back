@@ -34,7 +34,7 @@ export class ConstituencyService {
     return response;
   }
 
-  private constituencyFeatureToEntity(
+  public constituencyFeatureToEntity(
     feature: ConstituencyFeatureDto,
   ): ConstituencyEntity {
     const constituencyEntity = {

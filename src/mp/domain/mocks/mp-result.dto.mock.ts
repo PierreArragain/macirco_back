@@ -1,11 +1,11 @@
 import { MpResultDto } from '../mp-result.dto';
 
-export const mpResultDtoMock: MpResultDto = {
+export const MpResultDtoMock: MpResultDto = {
   idMp: 1,
   surname: 'Dupont',
   firstName: 'Jeanne',
   gender: 'F',
-  parliamentaryGroup: 'Écologiste - NUPES',
+  parliamentaryGroup: 'Les Ecologistes - NUPES',
   party: 'Europe Écologie Les Verts',
   profession: 'Enseignante',
   picture: 'https://www.nosdeputes.fr/depute/photo/jeanne-dupont.jpg',

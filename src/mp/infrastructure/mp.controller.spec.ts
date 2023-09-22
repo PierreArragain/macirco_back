@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Status } from '../../common/constants';
 import { MpService } from '../application/mp.service';
 import { createMpDtoMock } from '../domain/mocks/create-mp.mock';
-import { MpServiceMock } from '../domain/mocks/mp.service.mock';
+import { MpServiceMock } from '../application/mocks/mp.service.mock';
 import { MpController } from './mp.controller';
 
 describe('MpController', () => {
