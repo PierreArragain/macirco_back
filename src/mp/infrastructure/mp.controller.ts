@@ -1,8 +1,8 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+import { ResponseDto } from '../../common/dtos/response.dto';
 import { MpService } from '../application/mp.service';
 import { CreateMpDto } from '../domain/create-mp.dto';
-import { MpEntity } from '../domain/mp.entity';
 
 @Controller('mp')
 export class MpController {
@@ -11,7 +11,7 @@ export class MpController {
 
   @Post('/createMp')
   @ApiOperation({ summary: 'Create a mp' })
-  async createMp(@Body() mp: CreateMpDto): Promise<MpEntity> {
+  async createMp(@Body() mp: CreateMpDto): Promise<ResponseDto> {
     return this.mpService.createMp(mp);
   }
 }

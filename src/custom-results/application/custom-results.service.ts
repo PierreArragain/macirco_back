@@ -38,13 +38,15 @@ export class CustomResultsService {
     throw new Error('Invalid geometry type');
   }
 
-  private getMpDtoToAddress(getMpDto: GetMPDto): string {
+  public getMpDtoToAddress(getMpDto: GetMPDto): string {
     let address = `${getMpDto.streetNumber} ${getMpDto.streetName} ${getMpDto.postCode} ${getMpDto.city}`;
     address = address.replace(/ /g, '+');
     return address;
   }
 
-  async getMpNewsByAddress(getMpDto: GetMPDto): Promise<GoogleNewsDto> {
+  public async getMpNewsByAddress(
+    getMpDto: GetMPDto,
+  ): Promise<GoogleNewsDto[]> {
     try {
       const mp = await this.getMpByAddress(getMpDto);
       return this.getMpNews(mp);
@@ -56,7 +58,7 @@ export class CustomResultsService {
     }
   }
 
-  async getMpNewsByMpId(mpId: number): Promise<GoogleNewsDto> {
+  async getMpNewsByMpId(mpId: number): Promise<GoogleNewsDto[]> {
     try {
       const mp = await this.mpService.findMpDtoById(mpId);
       return this.getMpNews(mp);
@@ -68,7 +70,7 @@ export class CustomResultsService {
     }
   }
 
-  async getMpNews(mp: MpResultDto): Promise<GoogleNewsDto> {
+  async getMpNews(mp: MpResultDto): Promise<GoogleNewsDto[]> {
     try {
       const genderQuery = mp.gender === 'H' ? 'député ' : 'députée ';
       const query = `${genderQuery} "${mp.firstName} ${mp.surname}"`;

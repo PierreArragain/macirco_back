@@ -18,13 +18,13 @@ export class CustomResultsController {
 
   @Post('/getNewsByAddress')
   @ApiOperation({ summary: 'Get news' })
-  async getNews(@Body() getMpDto: GetMPDto): Promise<GoogleNewsDto> {
+  async getNews(@Body() getMpDto: GetMPDto): Promise<GoogleNewsDto[]> {
     return this.customResultsService.getMpNewsByAddress(getMpDto);
   }
 
   @Get('/getNewsByMpId/:idMp')
   @ApiOperation({ summary: 'Get news' })
-  async getNewsByMpId(@Param('idMp') idMp: number): Promise<GoogleNewsDto> {
+  async getNewsByMpId(@Param('idMp') idMp: number): Promise<GoogleNewsDto[]> {
     return this.customResultsService.getMpNewsByMpId(+idMp);
   }
 }

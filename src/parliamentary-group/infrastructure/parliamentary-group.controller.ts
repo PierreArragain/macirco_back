@@ -3,6 +3,7 @@ import { ApiOperation } from '@nestjs/swagger';
 import { ParliamentaryGroupService } from '../application/parliamentary-group.service';
 import { CreateParliamentaryGroupDto } from '../domain/create-parliamentary-group.dto';
 import { ParliamentaryGroupEntity } from '../domain/parliamentary-group.entity';
+import { ResponseDto } from '../../common/dtos/response.dto';
 
 @Controller('parliamentary-group')
 export class ParliamentaryGroupController {
@@ -15,7 +16,7 @@ export class ParliamentaryGroupController {
   @ApiOperation({ summary: 'Create a parliamentaryGroup' })
   async createParliamentaryGroup(
     @Body() parliamentaryGroup: CreateParliamentaryGroupDto,
-  ): Promise<ParliamentaryGroupEntity> {
+  ): Promise<ResponseDto> {
     return this.parliamentaryGroupService.createParliamentaryGroup(
       parliamentaryGroup,
     );

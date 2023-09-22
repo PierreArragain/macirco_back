@@ -1,7 +1,7 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
+import { ResponseDto } from '../../common/dtos/response.dto';
 import { ConstituencyService } from '../application/constituency.service';
-import { ConstituencyEntity } from '../domain/constituency.entity';
 import { ConstituencyFeatureDto } from '../domain/constituency.feature.dto';
 
 @Controller('constituency')
@@ -13,7 +13,7 @@ export class ConstituencyController {
   @ApiOperation({ summary: 'Create a constituency' })
   async createConstituency(
     @Body() feature: ConstituencyFeatureDto,
-  ): Promise<ConstituencyEntity> {
+  ): Promise<ResponseDto> {
     return this.constituencyService.createConstituency(feature);
   }
 }
